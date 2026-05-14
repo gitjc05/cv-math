@@ -1,25 +1,69 @@
 #define EPS 0.000001f
 
-class vec3
+template <typename T> class vec3
 {
 public:
-	float x;
-	float y;
-	float z;
+	T x;
+	T y;
+	T z;
 
-	vec3(float x = 0.0f, float y = 0.0f, float z = 0.0f);
+	vec3(T x, T y, T z)
+	{
+		this->x = x;
+		this->y = y;
+		this->z = z;
+	}
 
-	vec3 operator+(const vec3& other);
+	vec3() {}
 
-	vec3 operator-(const vec3& other);
 
-	vec3 operator*(const vec3& other);
+	bool equals(const vec3<T>& other) const
+	{
+		return (fabs(other.x - x) <= EPS) && (fabs(other.y - y) <= EPS) && (fabs(other.z - z) <= EPS);
+	}
 
-	vec3 operator+(const float& offset);
+	vec3<T> operator+(const vec3<T>& other) const
+	{
+		vec3<T> result(x + other.x, y + other.y, z + other.z);
+		return result;
+	}
 
-	vec3 operator*(const float& scale);
+	vec3<T> operator-(const vec3& other) const
+	{
+		vec3<T> result(x - other.x, y - other.y, z - other.z);
+		return result;
+	}
 
-	bool equals(const vec3& other);
+	vec3<T> operator*(const vec3& other) const
+	{
+		vec3<T> result(x * other.x, y * other.y, z * other.z);
+		return result;
+	}
 
-	float dot(vec3& other);
+	vec3<T> operator+(const T& offset) const
+	{
+		vec3<T> result(offset + x, offset + y, offset + z);
+		return result;
+	}
+
+	vec3<T> operator*(const T& scale) const
+	{
+		vec3<T> result(scale * x, scale * y, scale * z);
+		return result;
+	}
+
+	T dot(vec3& other) const
+	{
+		return (x * other.x) + (y * other.y) + (z * other.z);
+	}
+
+	vec3<T> cross(vec3& other) const
+	{
+		vec3 result(
+			y * other.z - z * other.y,
+			x * other.z - z * other.x,
+			x * other.y - y * other.x
+		);
+		return result;
+	}
 };
