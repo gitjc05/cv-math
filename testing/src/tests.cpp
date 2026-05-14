@@ -26,6 +26,13 @@ TEST(ComplexTests, Addition)
 
 	EXPECT_TRUE(result.IsEqual(sum));
 	EXPECT_FALSE(c1.IsEqual(sum));
+
+	Complex sum2 = c2 - result;
+
+	EXPECT_FALSE(result.IsEqual(sum2));
+	result.r = -1.0f;
+	result.j = -2.0f;
+	EXPECT_TRUE(result.IsEqual(sum2));
 }
 
 TEST(Vec3Tests, Equality)
@@ -76,6 +83,25 @@ TEST(Vec3Tests, Adding)
 	add_result1 = add_result1 + 5.0f;
 	add_result2 = add_result2 + (-6.5f);
 	ASSERT_FALSE(add_result1.equals(add_result2));
+}
+
+TEST(Vec3Tests, Multiplying)
+{
+	std::vector<float> xIns = { 0.5f, 1.0f, 2.0f, 2000.0f, 123103.0f, 0.5f, 0.1f, 10.0f, 10800.0f, 12.6f };
+	std::vector<float> yIns = { 0.123f, 1230.0f, 13.3f, 0.222f, 0.2223f, 123.0f, 8376.0f, 1.002f, 22.02201f, 1.6f };
+	std::vector<float> zIns = { 0.14f, 0.3123f, 0.324f, 1.23f, 3.44f, 3.14f, 2.17f, 1.203f, 303.0f, 67.420f };
+
+
+	for (int i = 0; i < 5; i++)
+	{
+		vec3 result(xIns[i] * xIns[i + 5], yIns[i] * yIns[i + 5], zIns[i] * zIns[i + 5]);
+		vec3 m1(xIns[i], yIns[i], zIns[i]);
+		vec3 m2(xIns[i + 5], yIns[i + 5], zIns[i + 5]);
+		vec3 product = m1 * m2;
+		EXPECT_TRUE(product.equals(result));
+		EXPECT_FALSE(product.equals(m1));
+		EXPECT_FALSE(product.equals(m2));
+	}
 }
 
 TEST(QuaternionTests, Inverse)
