@@ -1,7 +1,8 @@
 #pragma once
+#include <format>
+#include <iostream>
 
-
-class quaternion
+class Quaternion
 {
 public:
 	float x;
@@ -9,15 +10,20 @@ public:
 	float z;
 	float w;
 
-	quaternion(float x = 0.0f, float y = 0.0f, float z = 0.0f, float w = 0.0f);
-	~quaternion();
+	Quaternion(float x = 0.0f, float y = 0.0f, float z = 0.0f, float w = 0.0f);
+	~Quaternion();
 
-	quaternion operator+(const quaternion& other);
-	quaternion operator+(const float& offset);
-	quaternion operator-(const quaternion& other);
-	quaternion operator*(const quaternion& other);
-	quaternion operator/(const quaternion& other);
-	void inverse();
-
+	Quaternion operator+(const Quaternion& other);
+	Quaternion operator+(const float& offset);
+	Quaternion operator-(const Quaternion& other);
+	Quaternion operator*(const Quaternion& other);
+	Quaternion operator*(const float& scale);
+	Quaternion operator/(const Quaternion& other);
+	void Inverse();
+	void RotateInverse();
+	void CopyTo(Quaternion& q2);
+	bool Equals(Quaternion& other);
+	void Display();
+	float Dot(Quaternion& q2);
 };
 

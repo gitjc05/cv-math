@@ -40,29 +40,29 @@ TEST(Vec3Tests, Equality)
 	float x = 12.22, y = -209.0, z = 20.0f;
 	float x1 = 20.0f, y1 = 304.09, z1 = 900.234;
 
-	vec3<float> t1(x, y, z);
-	vec3<float> t2(x, y, z);
+	Vec3<float> t1(x, y, z);
+	Vec3<float> t2(x, y, z);
 
-	bool equality_result = t1.equals(t2);
+	bool equality_result = t1.Equals(t2);
 
-	ASSERT_TRUE(equality_result);
+	EXPECT_TRUE(equality_result);
 
 	t1.x -= 0.22f;
 	t2.x -= 0.22f;
-	equality_result = t1.equals(t2);
-	ASSERT_TRUE(equality_result);
+	equality_result = t1.Equals(t2);
+	EXPECT_TRUE(equality_result);
 
-	t2.x += 0.00001;
-	equality_result = t1.equals(t2);
-	ASSERT_FALSE(equality_result);
+	t2.x += 0.0001;
+	equality_result = t1.Equals(t2);
+	EXPECT_FALSE(equality_result);
 
-	t2 = vec3<float>(x1, y1, z1);
-	equality_result = t1.equals(t2);
-	ASSERT_FALSE(equality_result);
+	t2 = Vec3<float>(x1, y1, z1);
+	equality_result = t1.Equals(t2);
+	EXPECT_FALSE(equality_result);
 
 	t1.x = x1; t1.y = y1; t1.z = z1;
-	equality_result = t1.equals(t2);
-	ASSERT_TRUE(equality_result);
+	equality_result = t1.Equals(t2);
+	EXPECT_TRUE(equality_result);
 }
 
 TEST(Vec3Tests, Adding)
@@ -70,19 +70,19 @@ TEST(Vec3Tests, Adding)
 	float x = 12.22, y = -209.0, z = 20.0f;
 	float x1 = 20.0f, y1 = 304.09, z1 = 900.234;
 
-	vec3<float> test1(x, y, z);
-	vec3<float> test2(x1, y1, z1);
-	vec3<float> add_result1 = test1 + test2;
-	vec3<float> add_result2 = test2 + test1;
+	Vec3<float> test1(x, y, z);
+	Vec3<float> test2(x1, y1, z1);
+	Vec3<float> add_result1 = test1 + test2;
+	Vec3<float> add_result2 = test2 + test1;
 
-	ASSERT_TRUE(add_result1.x == x + x1);
-	ASSERT_TRUE(add_result1.y == y + y1);
-	ASSERT_TRUE(add_result1.z == z + z1);
+	EXPECT_TRUE(add_result1.x == x + x1);
+	EXPECT_TRUE(add_result1.y == y + y1);
+	EXPECT_TRUE(add_result1.z == z + z1);
 
-	ASSERT_TRUE(add_result2.equals(add_result1));
+	EXPECT_TRUE(add_result2.Equals(add_result1));
 	add_result1 = add_result1 + 5.0f;
 	add_result2 = add_result2 + (-6.5f);
-	ASSERT_FALSE(add_result1.equals(add_result2));
+	EXPECT_FALSE(add_result1.Equals(add_result2));
 }
 
 TEST(Vec3Tests, Multiplying)
@@ -94,13 +94,13 @@ TEST(Vec3Tests, Multiplying)
 
 	for (int i = 0; i < 5; i++)
 	{
-		vec3 result(xIns[i] * xIns[i + 5], yIns[i] * yIns[i + 5], zIns[i] * zIns[i + 5]);
-		vec3 m1(xIns[i], yIns[i], zIns[i]);
-		vec3 m2(xIns[i + 5], yIns[i + 5], zIns[i + 5]);
-		vec3 product = m1 * m2;
-		EXPECT_TRUE(product.equals(result));
-		EXPECT_FALSE(product.equals(m1));
-		EXPECT_FALSE(product.equals(m2));
+		Vec3 result(xIns[i] * xIns[i + 5], yIns[i] * yIns[i + 5], zIns[i] * zIns[i + 5]);
+		Vec3 m1(xIns[i], yIns[i], zIns[i]);
+		Vec3 m2(xIns[i + 5], yIns[i + 5], zIns[i + 5]);
+		Vec3 product = m1 * m2;
+		EXPECT_TRUE(product.Equals(result));
+		EXPECT_FALSE(product.Equals(m1));
+		EXPECT_FALSE(product.Equals(m2));
 	}
 }
 
@@ -109,13 +109,25 @@ TEST(QuaternionTests, Inverse)
 	EXPECT_TRUE(true);
 
 	int x = 1;
-	int y = 0;
-	int z = 0;
+	int y = 0.2;
+	int z = 0.2;
 	int w = 1;
-	quaternion q(1, 0, 0, w);
+	Quaternion q(1, 0, 0, w);
 
-	q.inverse();
-	ASSERT_EQ(q.w, -w);
-	q.inverse();
-	ASSERT_EQ(q.w, w);
+
+	q.Inverse();
+	EXPECT_EQ(q.x, -x);
+	EXPECT_EQ(q.y, -y);
+	EXPECT_EQ(q.z, -z);
+
+
+	q.RotateInverse();
+	EXPECT_EQ(q.w, -w);
+	q.RotateInverse();
+	EXPECT_EQ(q.w, w);
+	q.Inverse();
+	EXPECT_EQ(q.x, x);
+	EXPECT_EQ(q.y, y);
+	EXPECT_EQ(q.z, z);
+
 }

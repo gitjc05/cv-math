@@ -16,12 +16,12 @@ set(
     Sources
     src/main.cpp
     src/quaternion.cpp
-  )
+   "src/rotation.cpp")
 
 set(
     Headers 
     include/quaternion.h
- "include/vec3.h" "include/complex.h")
+ "include/vec3.h" "include/complex.h" "include/rotation.h")
 
 add_library(matrix_lib STATIC ${Sources} ${Headers})
 

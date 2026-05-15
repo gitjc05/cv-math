@@ -7,12 +7,12 @@ set(
 
 set(
 	Sources
-	src/tests.cpp
-)
+	"src/TestEntry.cpp"
+	"src/QuaternionTests.cpp"
+  "src/RotationTests.cpp")
 
 set(
 	Headers
-	../include/quaternion.h
 )
 
 add_executable(${this}
