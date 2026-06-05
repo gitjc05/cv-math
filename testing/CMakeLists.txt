@@ -9,7 +9,8 @@ set(
 	Sources
 	"src/TestEntry.cpp"
 	"src/QuaternionTests.cpp"
-  "src/RotationTests.cpp")
+  "src/RotationTests.cpp"
+  "src/GeolocationTests.cpp")
 
 set(
 	Headers

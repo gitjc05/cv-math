@@ -1,7 +1,10 @@
+#pragma once
+
 #define EPS 0.00001f
 #include <string>
 #include <iostream>
 #include <format>
+#include <math.h>
 
 template <typename T> class Vec3
 {
